@@ -1,3 +1,7 @@
+import AppLayout from "../components/AppLayout";
+
 const SignUp = () => {
-  return <div>회원가입</div>;
+  return <AppLayout>회원가입</AppLayout>;
 };
+
+export default SignUp;
