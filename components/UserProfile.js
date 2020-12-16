@@ -2,15 +2,15 @@ import React from "react";
 import Head from "next/head";
 import AppLayout from "../components/AppLayout";
 
-const SignUp = () => {
+const UserProfile = () => {
   return (
     <>
       <Head>
-        <title>SignUp | NodeBird</title>
+        <title>Profile | NodeBird</title>
       </Head>
-      <AppLayout>회원가입</AppLayout>
+      <AppLayout>내 프로필</AppLayout>
     </>
   );
 };
 
-export default SignUp;
+export default UserProfile;
