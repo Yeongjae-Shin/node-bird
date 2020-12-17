@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import UserProfile from "./UserProfile";
@@ -9,9 +9,24 @@ import { Menu, Input, Row, Col } from "antd";
 const AppLayout = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
 
+  const style = useMemo(
+    () => ({
+      verticalAlign: "middle",
+    }),
+    []
+  );
+
+  const navStyle = useMemo(
+    () => ({
+      display: "flex",
+      justifyContent: "center",
+    }),
+    []
+  );
+
   return (
     <div>
-      <Menu mode="horizontal">
+      <Menu mode="horizontal" style={navStyle}>
         <Menu.Item>
           <Link href="/">
             <a>노드버드</a>
@@ -23,7 +38,7 @@ const AppLayout = ({ children }) => {
           </Link>
         </Menu.Item>
         <Menu.Item>
-          <Input.Search enterButton style={{ verticalAlign: "middle" }} />
+          <Input.Search style={style} enterButton />
         </Menu.Item>
         <Menu.Item>
           <Link href="/signup">
@@ -33,7 +48,11 @@ const AppLayout = ({ children }) => {
       </Menu>
       <Row gutter={8}>
         <Col xs={24} md={6}>
-          {isLogin ? <UserProfile /> : <LoginForm />}
+          {isLogin ? (
+            <UserProfile setIsLogin={setIsLogin} />
+          ) : (
+            <LoginForm setIsLogin={setIsLogin} />
+          )}
         </Col>
         <Col xs={24} md={12}>
           {children}
