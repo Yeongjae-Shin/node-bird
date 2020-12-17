@@ -1,49 +1,59 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 import { Form, Input, Button } from "antd";
 
-const LoginForm = () => {
-  const [value, setValue] = useState({
-    id: "",
-    password: "",
-  });
+const FormStyle = styled(Form)`
+  padding: 1rem;
+`;
 
-  const handleChange = useCallback(({ target: { name, value } }) => {
-    setValue({ ...value, [name]: value });
-  }, []);
+const LoginForm = ({ setIsLogin }) => {
+  const [values, setValues] = useState({});
 
-  const handleSubmit = () => {
-    sessionStorage.setItem("user", value.id);
-  };
+  const handleChange = useCallback(
+    ({ target: { name, value } }) => {
+      setValues({ ...values, [name]: value });
+    },
+    [values]
+  );
+
+  const handleSubmit = useCallback(() => {
+    setIsLogin(true);
+  }, [values.id, values.password]);
+
+  const style = useMemo(() => ({ marginTop: 10 }), []);
 
   return (
     <>
       <Head>
         <title>Login | NodeBird</title>
       </Head>
-      <Form>
+      <FormStyle onFinish={handleSubmit}>
         <div>
           <label htmlFor="id">아이디</label>
-          <Input name="id" value={value.id} onChange={handleChange} required />
+          <Input
+            name="id"
+            value={values.id}
+            onChange={handleChange}
+            required
+            autoComplete="false"
+          />
         </div>
         <div>
           <label htmlFor="password">비밀번호</label>
           <Input
             name="password"
             type="password"
-            value={value.password}
+            value={values.password}
             onChange={handleChange}
             required
+            autoComplete="false"
           />
         </div>
-        <div>
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={false}
-            onSubmit={handleSubmit}
-          >
+        <div style={style}>
+          <Button type="primary" htmlType="submit" loading={false}>
             로그인
           </Button>
           <Link href="/signup">
@@ -52,9 +62,13 @@ const LoginForm = () => {
             </a>
           </Link>
         </div>
-      </Form>
+      </FormStyle>
     </>
   );
+};
+
+LoginForm.propTypes = {
+  setIsLogin: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
