@@ -19,7 +19,7 @@ const Profile = () => {
   return (
     <>
       <Head>
-        <title>Profile | NodeBird</title>
+        <title>내 프로필 | NodeBird</title>
       </Head>
       <AppLayout>
         <NicknameEditForm />
