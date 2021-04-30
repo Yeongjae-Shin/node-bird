@@ -13,5 +13,11 @@
   },
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "plugins": ["import", "react-hooks"],
-  "rules": {}
+  "rules": {
+    "indent": ["error", "space"],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "no-console": ["warn"]
+  }
 }
